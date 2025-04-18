@@ -55,27 +55,16 @@ else
 	exit 1
 endif
 
-if ( -f "$pureports" ) then
+if ( -f "$pureports" && -f "$portsf" ) then
 	rm -f "$pureports" 2>& /dev/null
-	if ( "$status" != "0" ) then
-		echo "You probably don't have permission to remove $pureports file"
-		echo "You need to manually delete them or run the script with privilege"
-		exit 1
-	else
-		echo "deleted $pureports file"
-	endif
-endif
-
-if ( -f "$portsf" ) then
 	rm -f "$portsf" 2>& /dev/null
 	if ( "$status" != "0" ) then
-		echo "You probably don't have permission to remove $portsf file"
-		echo "You need to manually delete them or run the script with privilege"
+		echo "You probably don't have permission to remove $pureports & $portsf files"
+		echo "You need to manually delete them or run the script with privileges"
 		exit 1
 	else
-		echo "deleted $portsf file"
+		echo "deleted $pureports & $portsf file"
 	endif
 endif
-
 
 exit 0
