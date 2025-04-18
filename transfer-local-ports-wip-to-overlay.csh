@@ -1,7 +1,6 @@
 #!/bin/csh
 
 set id=`id -u`
-set curdir=`pwd`
 set portsdir="/usr/ports"
 set maintainer="nxjoseph@protonmail.com"
 set pureports="$portsdir/pure-ports"
@@ -14,6 +13,7 @@ endif
 
 if ( -d "$portsdir" ) then
 	cd "$portsdir"
+	set curdir=`pwd`
 	if ( "$curdir" == "$portsdir" ) then
 		find . -type f -mindepth 3 -maxdepth 3 -iname makefile -exec grep -i "maintainer.*$maintainer" {} + >& ports
 		cat ports | awk -F'/' '{print $2"/"$3}' | awk -F':' '{print $1}' > & pure-ports
