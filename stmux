@@ -1,0 +1,8 @@
+#!/bin/csh
+
+set p=`pidof st`
+if ( $p == "" ) then
+	st -e tmux a
+else
+	notify-send "st is already open."
+endif

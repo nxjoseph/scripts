@@ -1,0 +1,16 @@
+#!/bin/csh
+
+while (1)
+	set t=`date +"%a, %b %d %Y, %H:%M"`
+	set l=`xkblayout-state print "%s"`
+	set v=`mixer vol.volume | cut -c 12- | cut -c 6-`
+	set m=`mixer vol.mute | cut -c 10-`
+	set c=`sysctl dev.cpu.0.temperature | awk '{print $2}'`
+	if ( $m == "on" ) then
+		set m_val='󰝟'
+	else if ( $m == "off" ) then
+		set m_val='󰕾'
+	endif
+	xsetroot -name "  $c | $m_val $v | 󰌓  $l | 󰃰  $t"
+	sleep 1
+end
