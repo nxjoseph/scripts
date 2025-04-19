@@ -4,6 +4,7 @@ set id=`id -u`
 set portsdir="/usr/ports"
 set maintainer="nxjoseph@protonmail.com"
 set pureports="$portsdir/pure-ports"
+set portsf="$portsdsir/ports"
 set destdir="/home/yusuf/Documents/yusuf-ports-overlay"
 
 if ( "$id" != "0" ) then
@@ -15,8 +16,8 @@ if ( -d "$portsdir" ) then
 	cd "$portsdir"
 	set curdir=`pwd`
 	if ( "$curdir" == "$portsdir" ) then
-		find . -type f -mindepth 3 -maxdepth 3 -iname makefile -exec grep -i "maintainer.*$maintainer" {} + >& ports
-		cat ports | awk -F'/' '{print $2"/"$3}' | awk -F':' '{print $1}' > & pure-ports
+		find . -type f -mindepth 3 -maxdepth 3 -iname makefile -exec grep -i "maintainer.*$maintainer" {} + >& "$portsf"
+		cat "$portsf" | awk -F'/' '{print $2"/"$3}' | awk -F':' '{print $1}' > & "$pureports"
 		foreach dir (`cat $pureports`)
    		# Extract the first directory name
    		set first_dir = `echo "$dir" | cut -d'/' -f1`
@@ -45,10 +46,10 @@ else
 	exit 1
 endif
 
-if ( -f "$portsdir/ports" ) then
-	rm -f "$portsdir/ports"
+if ( -f "$portsf" ) then
+	rm -f "$portsf"
 else
-	echo "$portsdir/ports not found"
+	echo "$portsf not found"
 	exit 1
 endif
 
