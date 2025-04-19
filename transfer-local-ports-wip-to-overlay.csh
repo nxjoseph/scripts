@@ -4,7 +4,7 @@ set id=`id -u`
 set portsdir="/usr/ports"
 set maintainer="nxjoseph@protonmail.com"
 set pureports="$portsdir/pure-ports"
-set portsf="$portsdsir/ports"
+set portsf="$portsdir/ports"
 set destdir="/home/yusuf/Documents/yusuf-ports-overlay"
 
 if ( "$id" != "0" ) then
