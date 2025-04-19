@@ -1,16 +1,16 @@
 #!/bin/csh
 
-set portsf="/usr/ports/ports"
 set portsdir="/usr/ports"
 set maintainer="nxjoseph@protonmail.com"
 set pureports="$portsdir/pure-ports"
+set portsf="$portsdir/ports"
 
 if ( -d "$portsdir" ) then
 	cd "$portsdir"
 	set curdir=`pwd`
 	if ( "$curdir" == "$portsdir" ) then
 		if ( ! -f "$portsf") then
-			touch 2 >& /dev/null "$portsf"
+			touch "$portsf"
 			if ( "$status" != 0 ) then
 				echo "You probably don't have permission to create $portsf file"
 				exit 1
@@ -18,7 +18,7 @@ if ( -d "$portsdir" ) then
 		endif
 		find . -type f -mindepth 3 -maxdepth 3 -iname makefile -exec grep -i "maintainer.*$maintainer" {} + >& $portsf
 		if ( ! -f "$pureports") then
-			touch 2 >& /dev/null "$pureports"
+			touch "$pureports"
 			if ( "$status" != 0 ) then
 				echo "You probably don't have permission to create $pureports file"
 				exit 1
