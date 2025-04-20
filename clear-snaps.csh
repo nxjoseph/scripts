@@ -10,7 +10,7 @@ if ( "$pool" == "" || "$keep" == "" ) then
 	exit 1
 endif
 
-foreach snap ( `zfs list -H -o name -t snap -r $pool | grep -vxE "$pool@$keep"` )
+foreach snap ( `zfs list -H -o name -t snap -r $pool | grep -vxE ".*$keep"` )
 	if ( "$status" != 0 ) then
 		echo "Error destroying snapshot $snap"
 		exit 1
