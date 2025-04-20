@@ -1,13 +1,19 @@
 #!/bin/csh
 
+echo "Pool to operate on: "
+set pool = $<
 echo "Snapshot to rollback to: "
 set rollback2 = $<
-if ( "$rollback2" == "" ) then
-	echo "You didn't give snapshot to rollback to, exiting..."
+if ( "$pool" == "" || "$rollback2" == "" ) then
+	echo "You didn't give enough variables"
 	exit 1
 else
-	foreach zf ( `zfs list -rH -o name -t filesystem zroot` )
+	foreach zf ( `zfs list -rH -o name -t filesystem $pool` )
 		zfs rollback $zf@$rollback2
+		if ( "$status" != 0 ) then
+			echo "Error rolling back to $rollback2 snapshot"
+			exit 1
+		endif
 	end
 	echo "Rollback is successful."
 endif
