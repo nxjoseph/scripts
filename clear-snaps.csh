@@ -15,7 +15,7 @@ foreach snap ( `zfs list -H -o name -t snap -r $pool | grep -vxE ".*$keep"` )
 		echo "Error destroying snapshot $snap"
 		exit 1
 	endif
-	zfs destroy -rv $snap
+	zfs destroy -v $snap
 end
 
 if ( "$pool" == "zroot" ) then
