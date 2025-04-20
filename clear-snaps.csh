@@ -12,10 +12,14 @@ endif
 
 foreach snap ( `zfs list -H -o name -t snap -r $pool | grep -vxE ".*$keep"` )
 	if ( "$status" != 0 ) then
-		echo "Error destroying snapshot $snap"
+		echo "Error finding snapshot"
 		exit 1
 	endif
 	zfs destroy -v $snap
+	if ( "$status" != 0 ) then
+		echo "Error destroying snapshot $snap"
+		exit 1
+	endif
 end
 
 if ( "$pool" == "zroot" ) then
@@ -28,6 +32,10 @@ if ( "$pool" == "zroot" ) then
 				exit 1
 			endif
 			zfs snapshot $pool/poudriere/jails/$jail@clean
+			if ( "$status" != 0 ) then
+				echo "Error creating snapshot $jail"
+				exit 1
+			endif
 		end
 	else
 		echo "Clean jails already found, not creating them."
