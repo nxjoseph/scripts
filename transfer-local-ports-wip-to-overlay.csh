@@ -29,7 +29,7 @@ if ( -d "$portsdir" ) then
    		mkdir -p "$destination_path"
    		
    		# Copy the directory
-   		cp -r "$dir" "$destination_path"
+   		rsync -au "$dir" "$destination_path"
    		
    		echo "Copied $dir to $destination_path"
 		end		
