@@ -1,5 +1,13 @@
 #!/bin/csh
 
+# DESCRIPTION: I use the script to only keep a specified snapshot
+# and destroy rest the other ones. It also re-crates poudriere jails'
+# 'clean' snapshots because they are required for poudriere to work.
+# DEPENDENCIES: grep, zfs, poudriere (optional)
+# AUTHOR: nxjoseph
+
+set jailpool="zroot"
+
 echo "Pool to operate on: "
 set pool = $<
 echo "Snapshot to keep: "
@@ -22,7 +30,7 @@ foreach snap ( `zfs list -H -o name -t snap -r $pool | grep -vxE ".*$keep"` )
 	endif
 end
 
-if ( "$pool" == "zroot" ) then
+if ( "$pool" == "$jailpool" ) then
 	set clean=`zfs list -t snap -r $pool | grep clean`
 	if ( "$status" != 0 ) then
 		echo "Clean jails not found, re-creating them..."
