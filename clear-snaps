@@ -3,7 +3,7 @@
 # DESCRIPTION: I use the script to only keep a specified snapshot
 # and destroy rest the other ones. It also re-crates poudriere jails'
 # 'clean' snapshots because they are required for poudriere to work.
-# DEPENDENCIES: grep, zfs, poudriere (optional)
+# DEPENDENCIES: zfs, poudriere (optional)
 # AUTHOR: nxjoseph
 
 set jailpool="zroot"
