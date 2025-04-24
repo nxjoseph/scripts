@@ -1,5 +1,11 @@
 #!/bin/csh
 
+# DESCRIPTION: I use the script to only rollback
+# all zfs datasets to one snapshot, useful for
+# recovering after mistakes.
+# DEPENDENCIES: zfs
+# AUTHOR: nxjoseph
+
 echo "Pool to operate on: "
 set pool = $<
 echo "Snapshot to rollback to: "
