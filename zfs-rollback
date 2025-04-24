@@ -5,7 +5,7 @@ set pool = $<
 echo "Snapshot to rollback to: "
 set rollback2 = $<
 if ( "$pool" == "" || "$rollback2" == "" ) then
-	echo "You didn't give enough variables"
+	echo "You didn't give enough inputs"
 	exit 1
 else
 	foreach zf ( `zfs list -rH -o name -t filesystem $pool` )
