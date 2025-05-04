@@ -1,0 +1,23 @@
+#!/bin/csh
+
+set date = `date +%F-%H:%M`
+
+echo "Pool to take snapshot from: "
+set pool = $<
+if ( "$pool" == "" ) then
+	echo "No pools given."
+	exit 1
+else
+	echo "Will operate on $pool"
+	echo "Date is: $date"
+	zfs snapshot -r "$pool@$date"
+	if ( "$status" != 0 ) then
+		echo "Error taking snapshot of $pool"
+		exit 1
+	else
+		echo "Snapshot is taken: done!"
+		zfs list -H -t snap "$pool@$date"
+	endif
+endif
+
+exit 0
